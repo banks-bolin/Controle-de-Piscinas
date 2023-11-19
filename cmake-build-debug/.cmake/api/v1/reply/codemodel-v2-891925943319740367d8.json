@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Controle_de_Piscinas",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Controle_de_Piscinas::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Controle_de_Piscinas-Debug-9b7ea923ed0bbb3c4388.json",
+					"name" : "Controle_de_Piscinas",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/TKusal/OneDrive/Documentos/Dev_Projects/Controle-de-Piscinas/cmake-build-debug",
+		"source" : "C:/Users/TKusal/OneDrive/Documentos/Dev_Projects/Controle-de-Piscinas"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}
