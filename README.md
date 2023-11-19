@@ -23,15 +23,21 @@ O software precisa apresentar um menu para o usuário com as seguintes opções:
 7. Excluir cliente cadastrado
 8. Sair do sistema
 
-Todo cliente precisa possuir um Nome, CPF, idade, Endereço, matrícula e informar se é um atleta ou não.
+Todo cliente precisa possuir um Nome completo, CPF, idade, Endereço, matrícula e informar se é um atleta ou não.
 
-Exigências:
+### Exigências:
 * A matrícula deve ser um número de 7 dígitos gerados de forma aleatória no momento em que o cliente é cadastrado
 * Cada item do menu deve ser processado por uma subrotina
 * Ao utilizar strings, deve ser atendar para evitar que ocorrer Buffer Overflow
 * O sistema só pode ser encerrado quando o usuário escolher a opção 8 do menu
 * O sistema deve comportar no máximo 200 clientes cadastrados. Se passar desta quantidade, não pode permitir que o usuário cadastre, retornando pra ele um alerta.
 * A exclusão, edição ou busca de um cliente cadastrado no sistema deve ser realizada por CPF ou Matrícula.
+
+### Etapa final: Validação de dados
+* O código não pode permitir que sejam inseridas informações em branco nos campos de cadastro do cliente
+* O código não deve aceitar caracteres que não sejam numéricos no CPF e deve exigir que o CPF possua 11 digitos
+* O códdigo deve validar se aquele CPF informado é um CPF válido
+* O desenvolvedor deve garantir que evitou buffer overflow nos vetores
 
 # Etapas corrigidas com os alunos
 
