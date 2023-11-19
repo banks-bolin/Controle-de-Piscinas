@@ -1,3 +1,0 @@
-C:/Users/TKusal/OneDrive/Documentos/Dev_Projects/Controle-de-Piscinas/cmake-build-debug/CMakeFiles/Controle_de_Piscinas.dir
-C:/Users/TKusal/OneDrive/Documentos/Dev_Projects/Controle-de-Piscinas/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/TKusal/OneDrive/Documentos/Dev_Projects/Controle-de-Piscinas/cmake-build-debug/CMakeFiles/rebuild_cache.dir
