@@ -29,7 +29,6 @@ Todo cliente precisa possuir um Nome completo, CPF, idade, Endereço, matrícula
 ### Exigências:
 * A matrícula deve ser um número de 7 dígitos gerados de forma aleatória no momento em que o cliente é cadastrado.
 * Cada item do menu deve ser processado por uma subrotina.
-* Ao utilizar strings, deve se atentar para evitar que ocorra Buffer Overflow.
 * O sistema só pode ser encerrado quando o usuário escolher a opção 8 do menu.
 * O sistema deve comportar no máximo 200 clientes cadastrados. Se passar desta quantidade, não pode permitir que o usuário cadastre, retornando pra ele um alerta.
 * A exclusão, edição ou busca de um cliente cadastrado no sistema deve ser realizada por CPF ou Matrícula.
@@ -44,8 +43,8 @@ Todo cliente precisa possuir um Nome completo, CPF, idade, Endereço, matrícula
 
 - [x] Levantamento de Requisitos
 - [x] Fluxograma do projeto
-- [ ] Organização das metodologias ágeis e separação das sprints por equipes
-- [ ] Estruturação do código base
+- [x] Organização das metodologias ágeis e separação das sprints por equipes
+- [x] Estruturação do código base
 - [ ] Desenvolvimento das subrotinas
 - [ ] Teste
 - [ ] Implantação de validação de dados
