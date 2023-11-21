@@ -56,6 +56,9 @@ int main () {
 }
 
 void menu() {
+
+
+
     printf("\t****************************************************************************\n");
     printf("\t*    Você está prestes a ser atendido, escolha uma das opções abaixo:      *\n");
     printf("\t*     1. Cadastrar Usuário                                                 *\n");
