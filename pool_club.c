@@ -44,12 +44,6 @@ int main () {
             case 1:
                 cadastraUsuario();
                 system("cls");
-                printf("%s\n", cliente[qtdCadastro].nome);
-                printf("%s\n", cliente[qtdCadastro].cpf);
-                printf("%s\n", cliente[qtdCadastro].endereco);
-                printf("%d\n", cliente[qtdCadastro].idade);
-                printf("%d\n", cliente[qtdCadastro].matricula);
-                printf("atleta (1/0): %d\n", cliente[qtdCadastro].atleta);
                 break;
             case 2:
                 system("cls");
@@ -136,7 +130,7 @@ void cadastraUsuario() {
         limpaCache();
         do {
             printf("O cliente é atleta?");
-            scanf("%c", x);
+            scanf("%c", &x);
             limpaCache();
 
             if (x == 's' || x == 'S') {
