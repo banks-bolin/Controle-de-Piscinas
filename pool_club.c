@@ -37,7 +37,7 @@ int main () {
 
     do {
         menu();
-        printf("        Escolha uma opÁ„o: ");
+        printf("        Escolha uma op√ß√£o: ");
         scanf("%d", &opcao);
 
         switch(opcao) {
@@ -75,7 +75,7 @@ int main () {
                 break;
             default:
                 system("cls");
-                printf("OpÁ„o inv·lida.\n");
+                printf("Op√ß√£o inv√°lida.\n");
         }
 
     } while(opcao != 8);
@@ -85,8 +85,8 @@ int main () {
 
 void menu() {
     printf("\t****************************************************************************\n");
-    printf("\t*    VocÍ est· prestes a ser atendido, escolha uma das opÁıes abaixo:      *\n");
-    printf("\t*     1. Cadastrar Usu·rio                                                 *\n");
+    printf("\t*    Voc√™ est√° prestes a ser atendido, escolha uma das op√ß√µes abaixo:      *\n");
+    printf("\t*     1. Cadastrar Usu√°rio                                                 *\n");
     printf("\t*     2. Buscar Cadastro                                                   *\n");
     printf("\t*     3. Editar Cadastro                                                   *\n");
     printf("\t*     4. Listar Cadastro                                                   *\n");
@@ -125,15 +125,15 @@ void cadastraUsuario(void) {
         entradaString(cliente[qtdCadastro].nome, sizeof(cliente[qtdCadastro].nome));
         printf("Informe o CPF: ");
         entradaString(cliente[qtdCadastro].cpf, sizeof(cliente[qtdCadastro].cpf));
-        printf("Informe o endereÁo: ");
+        printf("Informe o endere√ßo: ");
         entradaString(cliente[qtdCadastro].endereco, sizeof(cliente[qtdCadastro].endereco));
         printf("Informe a idade: ");
         scanf("%d", &cliente[qtdCadastro].idade);
         flushStdin();
 
         do {
-            //Faz uma validaÁ„o se o cliente È atleta ou n„o.
-            printf("O cliente È atleta? (s/n)");
+            //Faz uma valida√ß√£o se o cliente √© atleta ou n√£o.
+            printf("O cliente √© atleta? (s/n)");
             scanf("%c",&x);
             flushStdin();
 
@@ -145,7 +145,7 @@ void cadastraUsuario(void) {
                 valid = 1;
             } else {
                 system("cls");
-                printf("Valor inv·lido.\n\n");
+                printf("Valor inv√°lido.\n\n");
             }
         }while (!valid);
     } else {
