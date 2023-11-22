@@ -132,16 +132,16 @@ void cadastraUsuario(void) {
         flushStdin();
 
         do {
-            //Faz uma validação se o cliente é atleta ou não.
+            //Faz uma validação se o cliente é atleta ou não
             printf("O cliente é atleta? (s/n)");
             scanf("%c",&x);
             flushStdin();
 
             if (x == 's' || x == 'S') {
-                cliente[qtdCadastro].atleta = 0;
+                cliente[qtdCadastro].atleta = 1;
                 valid = 1;
             } else if (x == 'n' || x == 'N') {
-                cliente[qtdCadastro].atleta = 1;
+                cliente[qtdCadastro].atleta = 0;
                 valid = 1;
             } else {
                 system("cls");
