@@ -4,11 +4,11 @@
 #include <time.h>
 #include "string.h"
 
-void menu();
-int gerarMatricula();
-void cadastraUsuario();
-void limpaCache();
-void entradaString();
+void menu(void);
+int gerarMatricula(void);
+void cadastraUsuario(void);
+void flushStdin(void);
+void entradaString(char *s, int tam);
 //void buscarCadastro();
 //void editarCadastro();
 //void listarCadastros();
@@ -42,14 +42,8 @@ int main () {
 
         switch(opcao) {
             case 1:
-                cadastraUsuario();
                 system("cls");
-                printf("%s\n", cliente[qtdCadastro].nome);
-                printf("%s\n", cliente[qtdCadastro].cpf);
-                printf("%s\n", cliente[qtdCadastro].endereco);
-                printf("%d\n", cliente[qtdCadastro].idade);
-                printf("%d\n", cliente[qtdCadastro].matricula);
-                printf("atleta (1/0): %d\n", cliente[qtdCadastro].atleta);
+                cadastraUsuario();
                 break;
             case 2:
                 system("cls");
@@ -103,55 +97,57 @@ void menu() {
     printf("\t****************************************************************************\n");
 }
 
-int gerarMatricula () {
+int gerarMatricula (void) {
     srand(time(NULL));
-    int matricula = rand();
-
-    return matricula;
-}
-void limpaCache() {
-    while(getchar() != '\n' && getchar() != EOF);
+    int i = rand();
+    return i;
 }
 
-void entradaString(char *s){
-    fgets(s, sizeof(s), stdin);
+void flushStdin(void) {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+void entradaString(char *s, int tam){
+    fgets(s, tam, stdin);
     s[strcspn(s, "\n")] = '\0';
-    limpaCache();
+    flushStdin();
 }
 
-void cadastraUsuario() {
-    char x, valid = 1;
+void cadastraUsuario(void) {
+    char x;
+    int valid = 0;
 
     if (qtdCadastro < MAX_CAD) {
         cliente[qtdCadastro].matricula = gerarMatricula();
 
         printf("Insira o nome: ");
-        entradaString(cliente[qtdCadastro].nome);
+        entradaString(cliente[qtdCadastro].nome, sizeof(cliente[qtdCadastro].nome));
         printf("Informe o CPF: ");
-        entradaString(cliente[qtdCadastro].cpf);
+        entradaString(cliente[qtdCadastro].cpf, sizeof(cliente[qtdCadastro].cpf));
         printf("Informe o endereço: ");
-        entradaString(cliente[qtdCadastro].endereco);
+        entradaString(cliente[qtdCadastro].endereco, sizeof(cliente[qtdCadastro].endereco));
         printf("Informe a idade: ");
         scanf("%d", &cliente[qtdCadastro].idade);
-        limpaCache();
+        flushStdin();
+
         do {
-            printf("O cliente é atleta?");
-            scanf("%c", x);
-            limpaCache();
+            //Faz uma validação se o cliente é atleta ou não.
+            printf("O cliente é atleta? (s/n)");
+            scanf("%c",&x);
+            flushStdin();
 
             if (x == 's' || x == 'S') {
                 cliente[qtdCadastro].atleta = 0;
-                valid = 0;
+                valid = 1;
             } else if (x == 'n' || x == 'N') {
                 cliente[qtdCadastro].atleta = 1;
-                valid = 0;
-            } else {
-                printf("Valor inválido.");
-                system("cls");
                 valid = 1;
+            } else {
+                system("cls");
+                printf("Valor inválido.\n\n");
             }
-        }while (valid != 0);
-
+        }while (!valid);
     } else {
         printf("Limite de cadastros atingido.");
     }
