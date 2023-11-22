@@ -17,11 +17,13 @@ void entradaString(char *s, int tam);
 //void excluirCadastro();
 
 #define MAX_CAD 200
+#define MAX_STR_CAD 51
+#define MAX_CPF 12
 
 typedef struct {
-    char nome[51];
-    char cpf[12];
-    char endereco[51];
+    char nome[MAX_STR_CAD];
+    char cpf[MAX_CPF];
+    char endereco[MAX_STR_CAD];
     int idade;
     int atleta;
     int matricula;
