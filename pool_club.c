@@ -1,13 +1,17 @@
+//**************************
+//File Encoding: ISO-8859-1
+//**************************
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
 #include <time.h>
-#include "string.h"
+#include <string.h>
 
 void menu(void);
 int gerarMatricula(void);
 void cadastraUsuario(void);
-void flushStdin(void);
+void limpaStdin(void);
 void entradaString(char *s, int tam);
 void listarCadastros();
 //void buscarCadastro();
@@ -41,6 +45,7 @@ int main () {
         menu();
         printf("        Escolha uma opção: ");
         scanf("%d", &opcao);
+        limpaStdin();
 
         switch(opcao) {
             case 1:
@@ -77,7 +82,7 @@ int main () {
                 break;
             default:
                 system("cls");
-                printf("Opção inválida.\n");
+                printf("Opçãoo inválida.\n");
         }
 
     } while(opcao != 8);
@@ -99,22 +104,23 @@ void menu() {
     printf("\t****************************************************************************\n");
 }
 
-void listarCadastros(void){
+void listarCadastros(void) {
 
     for (int i = 0; i < qtdCadastro; ++i) {
-        if(cliente[i].nome[0] == '\0'){
-            printf("\n\n\n\t***************************\n");
-            printf("\tnome: %s\n", cliente[i].nome);
-            printf("\tCPF: %s\n", cliente[i].cpf);
-            printf("\tmatrícula: %d\n", cliente[i].matricula);
-            if(cliente[i].atleta == 1){
-                printf("\tÉ atleta.\n");
-            }else{
-                printf("\tNão é atleta.\n");
-            }
-            printf("\t***************************\n\n\n");
+
+        printf("\t***************************\n");
+        printf("\tnome: %s\n", cliente[i].nome);
+        printf("\tCPF: %s\n", cliente[i].cpf);
+        printf("\tmatrícula: %d\n", cliente[i].matricula);
+        if (cliente[i].atleta == 1) {
+            printf("\tÉ atleta.\n");
+        } else {
+            printf("\tNão é atleta.\n");
         }
+        printf("\t***************************\n");
     }
+    system("pause");
+    system("cls");
 }
 
 int gerarMatricula (void) {
@@ -123,15 +129,16 @@ int gerarMatricula (void) {
     return i;
 }
 
-void flushStdin(void) {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
+void limpaStdin(void) {
+    while (getchar() != '\n' && getchar() != EOF);
+    //fflush(stdin);
 }
 
 void entradaString(char *s, int tam){
     fgets(s, tam, stdin);
     s[strcspn(s, "\n")] = '\0';
-    flushStdin();
+    fflush(stdin);
+    //limpaStdin();
 }
 
 void cadastraUsuario(void) {
@@ -149,13 +156,13 @@ void cadastraUsuario(void) {
         entradaString(cliente[qtdCadastro].endereco, sizeof(cliente[qtdCadastro].endereco));
         printf("Informe a idade: ");
         scanf("%d", &cliente[qtdCadastro].idade);
-        flushStdin();
+        limpaStdin();
 
         do {
-            //Faz uma validação se o cliente é atleta ou não
+            //Valida se o cliente é atleta ou não
             printf("O cliente é atleta? (s/n)");
             scanf("%c",&x);
-            flushStdin();
+            limpaStdin();
 
             if (x == 's' || x == 'S') {
                 cliente[qtdCadastro].atleta = 1;
@@ -167,8 +174,8 @@ void cadastraUsuario(void) {
                 system("cls");
                 printf("Valor inválido.\n\n");
             }
-            qtdCadastro++;
         }while (!valid);
+        qtdCadastro++;
     } else {
         printf("Limite de cadastros atingido.");
     }
