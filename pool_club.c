@@ -9,9 +9,9 @@ int gerarMatricula(void);
 void cadastraUsuario(void);
 void flushStdin(void);
 void entradaString(char *s, int tam);
+void listarCadastros();
 //void buscarCadastro();
 //void editarCadastro();
-//void listarCadastros();
 //void listarPiscinas();
 //void listarAtletas();
 //void excluirCadastro();
@@ -39,7 +39,7 @@ int main () {
 
     do {
         menu();
-        printf("        Escolha uma opÃ§Ã£o: ");
+        printf("        Escolha uma opção: ");
         scanf("%d", &opcao);
 
         switch(opcao) {
@@ -57,7 +57,7 @@ int main () {
                 break;
             case 4:
                 system("cls");
-//                listarCadastros();
+                listarCadastros();
                 break;
             case 5:
                 system("cls");
@@ -77,7 +77,7 @@ int main () {
                 break;
             default:
                 system("cls");
-                printf("OpÃ§Ã£o invÃ¡lida.\n");
+                printf("Opção inválida.\n");
         }
 
     } while(opcao != 8);
@@ -87,8 +87,8 @@ int main () {
 
 void menu() {
     printf("\t****************************************************************************\n");
-    printf("\t*    VocÃª estÃ¡ prestes a ser atendido, escolha uma das opÃ§Ãµes abaixo:      *\n");
-    printf("\t*     1. Cadastrar UsuÃ¡rio                                                 *\n");
+    printf("\t*    Você está prestes a ser atendido, escolha uma das opções abaixo:      *\n");
+    printf("\t*     1. Cadastrar Usuário                                                 *\n");
     printf("\t*     2. Buscar Cadastro                                                   *\n");
     printf("\t*     3. Editar Cadastro                                                   *\n");
     printf("\t*     4. Listar Cadastro                                                   *\n");
@@ -97,6 +97,24 @@ void menu() {
     printf("\t*     7. Excluir Cadastro                                                  *\n");
     printf("\t*     8. Sair                                                              *\n");
     printf("\t****************************************************************************\n");
+}
+
+void listarCadastros(void){
+
+    for (int i = 0; i < qtdCadastro; ++i) {
+        if(cliente[i].nome[0] == '\0'){
+            printf("\n\n\n\t***************************\n");
+            printf("\tnome: %s\n", cliente[i].nome);
+            printf("\tCPF: %s\n", cliente[i].cpf);
+            printf("\tmatrícula: %d\n", cliente[i].matricula);
+            if(cliente[i].atleta == 1){
+                printf("\tÉ atleta.\n");
+            }else{
+                printf("\tNão é atleta.\n");
+            }
+            printf("\t***************************\n\n\n");
+        }
+    }
 }
 
 int gerarMatricula (void) {
@@ -127,15 +145,15 @@ void cadastraUsuario(void) {
         entradaString(cliente[qtdCadastro].nome, sizeof(cliente[qtdCadastro].nome));
         printf("Informe o CPF: ");
         entradaString(cliente[qtdCadastro].cpf, sizeof(cliente[qtdCadastro].cpf));
-        printf("Informe o endereÃ§o: ");
+        printf("Informe o endereço: ");
         entradaString(cliente[qtdCadastro].endereco, sizeof(cliente[qtdCadastro].endereco));
         printf("Informe a idade: ");
         scanf("%d", &cliente[qtdCadastro].idade);
         flushStdin();
 
         do {
-            //Faz uma validaÃ§Ã£o se o cliente Ã© atleta ou nÃ£o
-            printf("O cliente Ã© atleta? (s/n)");
+            //Faz uma validação se o cliente é atleta ou não
+            printf("O cliente é atleta? (s/n)");
             scanf("%c",&x);
             flushStdin();
 
@@ -147,8 +165,9 @@ void cadastraUsuario(void) {
                 valid = 1;
             } else {
                 system("cls");
-                printf("Valor invÃ¡lido.\n\n");
+                printf("Valor inválido.\n\n");
             }
+            qtdCadastro++;
         }while (!valid);
     } else {
         printf("Limite de cadastros atingido.");
