@@ -1,27 +1,33 @@
+//**************************
+//File Encoding: ISO-8859-1
+//**************************
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
 #include <time.h>
-#include "string.h"
+#include <string.h>
 
 void menu(void);
 int gerarMatricula(void);
 void cadastraUsuario(void);
-void flushStdin(void);
+void limpaStdin(void);
 void entradaString(char *s, int tam);
+void listarCadastros();
+void listarAtletas();
 //void buscarCadastro();
 //void editarCadastro();
-//void listarCadastros();
 //void listarPiscinas();
-//void listarAtletas();
 //void excluirCadastro();
 
 #define MAX_CAD 200
+#define MAX_STR_CAD 51
+#define MAX_CPF 12
 
 typedef struct {
-    char nome[51];
-    char cpf[12];
-    char endereco[51];
+    char nome[MAX_STR_CAD];
+    char cpf[MAX_CPF];
+    char endereco[MAX_STR_CAD];
     int idade;
     int atleta;
     int matricula;
@@ -37,8 +43,9 @@ int main () {
 
     do {
         menu();
-        printf("        Escolha uma op√ß√£o: ");
+        printf("        Escolha uma opÁ„o: ");
         scanf("%d", &opcao);
+        limpaStdin();
 
         switch(opcao) {
             case 1:
@@ -55,7 +62,7 @@ int main () {
                 break;
             case 4:
                 system("cls");
-//                listarCadastros();
+                listarCadastros();
                 break;
             case 5:
                 system("cls");
@@ -63,7 +70,7 @@ int main () {
                 break;
             case 6:
                 system("cls");
-//                listarAtletas();
+                listarAtletas();
                 break;
             case 7:
                 system("cls");
@@ -75,7 +82,7 @@ int main () {
                 break;
             default:
                 system("cls");
-                printf("Op√ß√£o inv√°lida.\n");
+                printf("OpÁ„oo inv·lida.\n");
         }
 
     } while(opcao != 8);
@@ -85,8 +92,8 @@ int main () {
 
 void menu() {
     printf("\t****************************************************************************\n");
-    printf("\t*    Voc√™ est√° prestes a ser atendido, escolha uma das op√ß√µes abaixo:      *\n");
-    printf("\t*     1. Cadastrar Usu√°rio                                                 *\n");
+    printf("\t*    VocÍ est· prestes a ser atendido, escolha uma das opÁıes abaixo:      *\n");
+    printf("\t*     1. Cadastrar Usu·rio                                                 *\n");
     printf("\t*     2. Buscar Cadastro                                                   *\n");
     printf("\t*     3. Editar Cadastro                                                   *\n");
     printf("\t*     4. Listar Cadastro                                                   *\n");
@@ -95,23 +102,6 @@ void menu() {
     printf("\t*     7. Excluir Cadastro                                                  *\n");
     printf("\t*     8. Sair                                                              *\n");
     printf("\t****************************************************************************\n");
-}
-
-int gerarMatricula (void) {
-    srand(time(NULL));
-    int i = rand();
-    return i;
-}
-
-void flushStdin(void) {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-}
-
-void entradaString(char *s, int tam){
-    fgets(s, tam, stdin);
-    s[strcspn(s, "\n")] = '\0';
-    flushStdin();
 }
 
 void cadastraUsuario(void) {
@@ -125,17 +115,17 @@ void cadastraUsuario(void) {
         entradaString(cliente[qtdCadastro].nome, sizeof(cliente[qtdCadastro].nome));
         printf("Informe o CPF: ");
         entradaString(cliente[qtdCadastro].cpf, sizeof(cliente[qtdCadastro].cpf));
-        printf("Informe o endere√ßo: ");
+        printf("Informe o endereÁo: ");
         entradaString(cliente[qtdCadastro].endereco, sizeof(cliente[qtdCadastro].endereco));
         printf("Informe a idade: ");
         scanf("%d", &cliente[qtdCadastro].idade);
-        flushStdin();
+        limpaStdin();
 
         do {
-            //Faz uma valida√ß√£o se o cliente √© atleta ou n√£o
-            printf("O cliente √© atleta? (s/n)");
+            //Valida se o cliente È atleta ou n„o
+            printf("O cliente È atleta? (s/n)");
             scanf("%c",&x);
-            flushStdin();
+            limpaStdin();
 
             if (x == 's' || x == 'S') {
                 cliente[qtdCadastro].atleta = 1;
@@ -145,10 +135,63 @@ void cadastraUsuario(void) {
                 valid = 1;
             } else {
                 system("cls");
-                printf("Valor inv√°lido.\n\n");
+                printf("Valor inv·lido.\n\n");
             }
         }while (!valid);
+        qtdCadastro++;
     } else {
         printf("Limite de cadastros atingido.");
     }
+}
+
+void listarCadastros(void) {
+
+    for (int i = 0; i < qtdCadastro; ++i) {
+
+        printf("\t***************************\n");
+        printf("\tnome: %s\n", cliente[i].nome);
+        printf("\tCPF: %s\n", cliente[i].cpf);
+        printf("\tmatrÌcula: %07d\n", cliente[i].matricula);
+        if (cliente[i].atleta == 1) {
+            printf("\t… atleta.\n");
+        } else {
+            printf("\tN„o È atleta.\n");
+        }
+        printf("\t***************************\n");
+    }
+    system("pause");
+    system("cls");
+}
+
+void listarAtletas(){
+    /* Temos clientes cadastrados no nosso sistema [ok]
+     * temos quer ver quais desses clientes, s„o atletas [ok]
+     * Imprime na console os clientes que s„o atletas [ok]
+     * */
+    printf("\t***************************\n");
+    printf("\tOs atletas cadastrados s„o:\n");
+    for (int i = 0; i < qtdCadastro; ++i) {//iterar a vari·vel cliente at· atingir o n˙mero cadastro
+       if(cliente[i].atleta == 1){
+           printf("\t %s\n", cliente[i].nome);
+       }
+    }
+    printf("\t***************************\n\n");
+}
+
+int gerarMatricula (void) {
+    srand(time(NULL));
+    int i = rand();
+    return i;
+}
+
+void limpaStdin(void) {
+    while (getchar() != '\n' && getchar() != EOF);
+    //fflush(stdin);
+}
+
+void entradaString(char *s, int tam){
+    fgets(s, tam, stdin);
+    s[strcspn(s, "\n")] = '\0';
+    fflush(stdin);
+    //limpaStdin();
 }
