@@ -15,6 +15,7 @@ void limpaStdin(void);
 void entradaString(char *s, int tam);
 void listarCadastros(void);
 void listarPiscinas(void);
+void menuPiscina(void);
 //void buscarCadastro();
 //void editarCadastro();
 //void listarAtletas();
@@ -22,13 +23,7 @@ void listarPiscinas(void);
 
 #define MAX_CAD 200
 #define MAX_STR_CAD 51
-#define MAX_DEP 10
 #define MAX_CPF 12
-
-typedef struct {
-    int matricula;
-    int idade;
-}dependente;
 
 typedef struct {
     char nome[MAX_STR_CAD];
@@ -37,7 +32,6 @@ typedef struct {
     int idade;
     int atleta;
     int matricula;
-    dependente menores[MAX_DEP];
 }usuario;
 
 usuario cliente[MAX_CAD];
@@ -111,6 +105,17 @@ void menu() {
     printf("\t****************************************************************************\n");
 }
 
+void menuPiscina(void){
+    printf("\t****************************************************************************\n");
+    printf("\t*    Qual piscina você quer listar?                                        *\n");
+    printf("\t*     1. Piscina - 0.40m                                                   *\n");
+    printf("\t*     2. Piscina - 1,50m                                                   *\n");
+    printf("\t*     3. Piscina - 2,50m                                                   *\n");
+    printf("\t*     4. Piscina - 3,00m                                                   *\n");
+    printf("\t*     5. Sair                                                              *\n");
+    printf("\t****************************************************************************\n");
+}
+
 int gerarMatricula (void) {
     srand(time(NULL));
     int i = rand();
@@ -177,6 +182,7 @@ void listarCadastros(void) {
         printf("\tnome: %s\n", cliente[i].nome);
         printf("\tCPF: %s\n", cliente[i].cpf);
         printf("\tmatrícula: %d\n", cliente[i].matricula);
+        printf("\tidade: %d\n", cliente[i].idade);
         if (cliente[i].atleta == 1) {
             printf("\tÉ atleta.\n");
         } else {
@@ -189,12 +195,66 @@ void listarCadastros(void) {
 }
 
 void listarPiscinas(void){
-    //    Piscina - 40cm, menores de 7 anos e seus responsáveis (maior de 18 anos).
-    //    Piscina com profundidade de 1,50m, onde apenas pessoas a partir de 7 anos podem acessar.
-    //    Piscina com profundidade de 2,50m, onde apenas adultos podem frequentar
-    //    E uma piscina de 3m de profundidade, onde apenas os atletas do clube podem acessar.
-    for (int i = 0; i < qtdCadastro; ++i) {//iterar a variável cliente, para extrair a idade dos clientes
+    int opcao;
+    do{
+        menuPiscina();
+        printf("        Escolha uma opção: ");
+        scanf("%d", &opcao);
+        limpaStdin();
 
-    }
-
+        switch (opcao) {
+            case 1:
+                printf("\t*****************************************************************\n");
+                printf("\tPiscina - 0,40m  -> menor que 7 anos ou maior que 18 anos        \n");
+                printf("\t*****************************************************************\n");
+                for (int i = 0; i < qtdCadastro; ++i) {
+                    if(cliente[i].idade < 7 || cliente[i].idade > 18){
+                        printf("\tnome: %s\n", cliente[i].nome);
+                        printf("\tidade: %d\n", cliente[i].idade);
+                    }
+                }
+                break;
+            case 2:
+                printf("\t*********************************************\n");
+                printf("\tPiscina - 1,50m -> maior que 7 anos          \n");
+                printf("\t*********************************************\n");
+                for (int i = 0; i < qtdCadastro; ++i) {
+                    if(cliente[i].idade >=7){
+                        printf("\tnome: %s\n", cliente[i].nome);
+                        printf("\tidade: %d\n", cliente[i].idade);
+                    }
+                }
+                break;
+            case 3:
+                printf("\t********************************************\n");
+                printf("\tPiscina - 2,50m  ->   maior que 18 anos     \n");
+                printf("\t********************************************\n");
+                for (int i = 0; i < qtdCadastro; ++i) {
+                    if(cliente[i].idade > 18){
+                        printf("\tnome: %s\n", cliente[i].nome);
+                        printf("\tidade: %d\n", cliente[i].idade);
+                    }
+                }
+                break;
+            case 4:
+                printf("\t**************************************\n");
+                printf("\tPiscina - 3,00m  ->  Atletas          \n");
+                printf("\t**************************************\n");
+                for (int i = 0; i < qtdCadastro; ++i) {
+                    if(cliente[i].atleta == 1){
+                        printf("\tnome: %s\n", cliente[i].nome);
+                        printf("\tidade: %d\n", cliente[i].idade);
+                        printf("\tÉ atleta.\n");
+                    }
+                }
+                break;
+            case 5:
+                menu();
+                break;
+            default:
+                system("cls");
+                printf("Opção inválida.\n");
+        }
+        limpaStdin();
+    }while(opcao != 5);
 }
