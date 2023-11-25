@@ -13,16 +13,22 @@ int gerarMatricula(void);
 void cadastraUsuario(void);
 void limpaStdin(void);
 void entradaString(char *s, int tam);
-void listarCadastros();
+void listarCadastros(void);
+void listarPiscinas(void);
 //void buscarCadastro();
 //void editarCadastro();
-//void listarPiscinas();
 //void listarAtletas();
 //void excluirCadastro();
 
 #define MAX_CAD 200
 #define MAX_STR_CAD 51
+#define MAX_DEP 10
 #define MAX_CPF 12
+
+typedef struct {
+    int matricula;
+    int idade;
+}dependente;
 
 typedef struct {
     char nome[MAX_STR_CAD];
@@ -31,6 +37,7 @@ typedef struct {
     int idade;
     int atleta;
     int matricula;
+    dependente menores[MAX_DEP];
 }usuario;
 
 usuario cliente[MAX_CAD];
@@ -66,7 +73,7 @@ int main () {
                 break;
             case 5:
                 system("cls");
-//                listarPiscinas();
+                listarPiscinas();
                 break;
             case 6:
                 system("cls");
@@ -104,41 +111,10 @@ void menu() {
     printf("\t****************************************************************************\n");
 }
 
-void listarCadastros(void) {
-
-    for (int i = 0; i < qtdCadastro; ++i) {
-
-        printf("\t***************************\n");
-        printf("\tnome: %s\n", cliente[i].nome);
-        printf("\tCPF: %s\n", cliente[i].cpf);
-        printf("\tmatrícula: %d\n", cliente[i].matricula);
-        if (cliente[i].atleta == 1) {
-            printf("\tÉ atleta.\n");
-        } else {
-            printf("\tNão é atleta.\n");
-        }
-        printf("\t***************************\n");
-    }
-    system("pause");
-    system("cls");
-}
-
 int gerarMatricula (void) {
     srand(time(NULL));
     int i = rand();
     return i;
-}
-
-void limpaStdin(void) {
-    while (getchar() != '\n' && getchar() != EOF);
-    //fflush(stdin);
-}
-
-void entradaString(char *s, int tam){
-    fgets(s, tam, stdin);
-    s[strcspn(s, "\n")] = '\0';
-    fflush(stdin);
-    //limpaStdin();
 }
 
 void cadastraUsuario(void) {
@@ -179,4 +155,46 @@ void cadastraUsuario(void) {
     } else {
         printf("Limite de cadastros atingido.");
     }
+}
+
+void limpaStdin(void) {
+    while (getchar() != '\n' && getchar() != EOF);
+    //fflush(stdin);
+}
+
+void entradaString(char *s, int tam){
+    fgets(s, tam, stdin);
+    s[strcspn(s, "\n")] = '\0';
+    fflush(stdin);
+    //limpaStdin();
+}
+
+void listarCadastros(void) {
+
+    for (int i = 0; i < qtdCadastro; ++i) {
+
+        printf("\t***************************\n");
+        printf("\tnome: %s\n", cliente[i].nome);
+        printf("\tCPF: %s\n", cliente[i].cpf);
+        printf("\tmatrícula: %d\n", cliente[i].matricula);
+        if (cliente[i].atleta == 1) {
+            printf("\tÉ atleta.\n");
+        } else {
+            printf("\tNão é atleta.\n");
+        }
+        printf("\t***************************\n");
+    }
+    system("pause");
+    system("cls");
+}
+
+void listarPiscinas(void){
+    //    Piscina - 40cm, menores de 7 anos e seus responsáveis (maior de 18 anos).
+    //    Piscina com profundidade de 1,50m, onde apenas pessoas a partir de 7 anos podem acessar.
+    //    Piscina com profundidade de 2,50m, onde apenas adultos podem frequentar
+    //    E uma piscina de 3m de profundidade, onde apenas os atletas do clube podem acessar.
+    for (int i = 0; i < qtdCadastro; ++i) {//iterar a variável cliente, para extrair a idade dos clientes
+
+    }
+
 }
