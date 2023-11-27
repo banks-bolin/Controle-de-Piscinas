@@ -13,10 +13,11 @@ int gerarMatricula(void);
 void cadastraUsuario(void);
 void limpaStdin(void);
 void entradaString(char *s, int tam);
-void listarCadastros();
+void listarCadastros(void);
+void listarPiscinas(void);
+void menuPiscina(void);
 //void buscarCadastro();
 //void editarCadastro();
-//void listarPiscinas();
 //void listarAtletas();
 //void excluirCadastro();
 
@@ -43,7 +44,7 @@ int main () {
 
     do {
         menu();
-        printf("        Escolha uma opção: ");
+        printf("        Escolha uma opÃ§Ã£o: ");
         scanf("%d", &opcao);
         limpaStdin();
 
@@ -66,11 +67,11 @@ int main () {
                 break;
             case 5:
                 system("cls");
-//                listarPiscinas();
+                listarPiscinas();
                 break;
             case 6:
                 system("cls");
-//                listarAtletas();
+                listarAtletas();
                 break;
             case 7:
                 system("cls");
@@ -82,7 +83,7 @@ int main () {
                 break;
             default:
                 system("cls");
-                printf("Opçãoo inválida.\n");
+                printf("OpÃ§Ã£oo invÃ¡lida.\n");
         }
 
     } while(opcao != 8);
@@ -92,8 +93,8 @@ int main () {
 
 void menu() {
     printf("\t****************************************************************************\n");
-    printf("\t*    Você está prestes a ser atendido, escolha uma das opções abaixo:      *\n");
-    printf("\t*     1. Cadastrar Usuário                                                 *\n");
+    printf("\t*    VocÃª estÃ¡ prestes a ser atendido, escolha uma das opÃ§Ãµes abaixo:      *\n");
+    printf("\t*     1. Cadastrar UsuÃ¡rio                                                 *\n");
     printf("\t*     2. Buscar Cadastro                                                   *\n");
     printf("\t*     3. Editar Cadastro                                                   *\n");
     printf("\t*     4. Listar Cadastro                                                   *\n");
@@ -104,29 +105,61 @@ void menu() {
     printf("\t****************************************************************************\n");
 }
 
-void listarCadastros(void) {
-
-    for (int i = 0; i < qtdCadastro; ++i) {
-
-        printf("\t***************************\n");
-        printf("\tnome: %s\n", cliente[i].nome);
-        printf("\tCPF: %s\n", cliente[i].cpf);
-        printf("\tmatrícula: %d\n", cliente[i].matricula);
-        if (cliente[i].atleta == 1) {
-            printf("\tÉ atleta.\n");
-        } else {
-            printf("\tNão é atleta.\n");
-        }
-        printf("\t***************************\n");
-    }
-    system("pause");
-    system("cls");
+void menuPiscina(void){
+    printf("\t****************************************************************************\n");
+    printf("\t*    Qual piscina vocÃª quer listar?                                        *\n");
+    printf("\t*     1. Piscina - 0.40m                                                   *\n");
+    printf("\t*     2. Piscina - 1,50m                                                   *\n");
+    printf("\t*     3. Piscina - 2,50m                                                   *\n");
+    printf("\t*     4. Piscina - 3,00m                                                   *\n");
+    printf("\t*     5. Sair                                                              *\n");
+    printf("\t****************************************************************************\n");
 }
 
 int gerarMatricula (void) {
     srand(time(NULL));
     int i = rand();
     return i;
+}
+
+void cadastraUsuario(void) {
+    char x;
+    int valid = 0;
+
+    if (qtdCadastro < MAX_CAD) {
+        cliente[qtdCadastro].matricula = gerarMatricula();
+
+        printf("Insira o nome: ");
+        entradaString(cliente[qtdCadastro].nome, sizeof(cliente[qtdCadastro].nome));
+        printf("Informe o CPF: ");
+        entradaString(cliente[qtdCadastro].cpf, sizeof(cliente[qtdCadastro].cpf));
+        printf("Informe o endereÃ§o: ");
+        entradaString(cliente[qtdCadastro].endereco, sizeof(cliente[qtdCadastro].endereco));
+        printf("Informe a idade: ");
+        scanf("%d", &cliente[qtdCadastro].idade);
+        limpaStdin();
+
+        do {
+            //Valida se o cliente Ã© atleta ou nÃ£o
+            printf("O cliente Ã© atleta? (s/n)");
+            scanf("%c",&x);
+            limpaStdin();
+
+            if (x == 's' || x == 'S') {
+                cliente[qtdCadastro].atleta = 1;
+                valid = 1;
+            } else if (x == 'n' || x == 'N') {
+                cliente[qtdCadastro].atleta = 0;
+                valid = 1;
+            } else {
+                system("cls");
+                printf("Valor invÃ¡lido.\n\n");
+            }
+        }while (!valid);
+        qtdCadastro++;
+    } else {
+        printf("Limite de cadastros atingido.");
+    }
 }
 
 void limpaStdin(void) {
@@ -141,42 +174,88 @@ void entradaString(char *s, int tam){
     //limpaStdin();
 }
 
-void cadastraUsuario(void) {
-    char x;
-    int valid = 0;
+void listarCadastros(void) {
 
-    if (qtdCadastro < MAX_CAD) {
-        cliente[qtdCadastro].matricula = gerarMatricula();
+    for (int i = 0; i < qtdCadastro; ++i) {
 
-        printf("Insira o nome: ");
-        entradaString(cliente[qtdCadastro].nome, sizeof(cliente[qtdCadastro].nome));
-        printf("Informe o CPF: ");
-        entradaString(cliente[qtdCadastro].cpf, sizeof(cliente[qtdCadastro].cpf));
-        printf("Informe o endereço: ");
-        entradaString(cliente[qtdCadastro].endereco, sizeof(cliente[qtdCadastro].endereco));
-        printf("Informe a idade: ");
-        scanf("%d", &cliente[qtdCadastro].idade);
+        printf("\t***************************\n");
+        printf("\tnome: %s\n", cliente[i].nome);
+        printf("\tCPF: %s\n", cliente[i].cpf);
+        printf("\tmatrÃ­cula: %d\n", cliente[i].matricula);
+        printf("\tidade: %d\n", cliente[i].idade);
+      
+        if (cliente[i].atleta == 1) {
+            printf("\tÃ‰ atleta.\n");
+        } else {
+            printf("\tNÃ£o Ã© atleta.\n");
+        }
+        printf("\t***************************\n");
+    }
+    system("pause");
+    system("cls");
+}
+
+void listarPiscinas(void){
+    int opcao;
+    do{
+        menuPiscina();
+        printf("        Escolha uma opÃ§Ã£o: ");
+        scanf("%d", &opcao);
         limpaStdin();
 
-        do {
-            //Valida se o cliente é atleta ou não
-            printf("O cliente é atleta? (s/n)");
-            scanf("%c",&x);
-            limpaStdin();
-
-            if (x == 's' || x == 'S') {
-                cliente[qtdCadastro].atleta = 1;
-                valid = 1;
-            } else if (x == 'n' || x == 'N') {
-                cliente[qtdCadastro].atleta = 0;
-                valid = 1;
-            } else {
+        switch (opcao) {
+            case 1:
+                printf("\t*****************************************************************\n");
+                printf("\tPiscina - 0,40m  -> menor que 7 anos ou maior que 18 anos        \n");
+                printf("\t*****************************************************************\n");
+                for (int i = 0; i < qtdCadastro; ++i) {
+                    if(cliente[i].idade < 7 || cliente[i].idade > 18){
+                        printf("\tnome: %s\n", cliente[i].nome);
+                        printf("\tidade: %d\n", cliente[i].idade);
+                    }
+                }
+                break;
+            case 2:
+                printf("\t*********************************************\n");
+                printf("\tPiscina - 1,50m -> maior que 7 anos          \n");
+                printf("\t*********************************************\n");
+                for (int i = 0; i < qtdCadastro; ++i) {
+                    if(cliente[i].idade >=7){
+                        printf("\tnome: %s\n", cliente[i].nome);
+                        printf("\tidade: %d\n", cliente[i].idade);
+                    }
+                }
+                break;
+            case 3:
+                printf("\t********************************************\n");
+                printf("\tPiscina - 2,50m  ->   maior que 18 anos     \n");
+                printf("\t********************************************\n");
+                for (int i = 0; i < qtdCadastro; ++i) {
+                    if(cliente[i].idade > 18){
+                        printf("\tnome: %s\n", cliente[i].nome);
+                        printf("\tidade: %d\n", cliente[i].idade);
+                    }
+                }
+                break;
+            case 4:
+                printf("\t**************************************\n");
+                printf("\tPiscina - 3,00m  ->  Atletas          \n");
+                printf("\t**************************************\n");
+                for (int i = 0; i < qtdCadastro; ++i) {
+                    if(cliente[i].atleta == 1){
+                        printf("\tnome: %s\n", cliente[i].nome);
+                        printf("\tidade: %d\n", cliente[i].idade);
+                        printf("\tÃ‰ atleta.\n");
+                    }
+                }
+                break;
+            case 5:
+                menu();
+                break;
+            default:
                 system("cls");
-                printf("Valor inválido.\n\n");
-            }
-        }while (!valid);
-        qtdCadastro++;
-    } else {
-        printf("Limite de cadastros atingido.");
-    }
+                printf("OpÃ§Ã£o invÃ¡lida.\n");
+        }
+        limpaStdin();
+    }while(opcao != 5);
 }
