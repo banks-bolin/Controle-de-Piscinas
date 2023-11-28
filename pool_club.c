@@ -14,11 +14,11 @@ void cadastraUsuario(void);
 void limpaStdin(void);
 void entradaString(char *s, int tam);
 void listarCadastros(void);
-void listarPiscinas(void);
+void listarAtletas();
 void menuPiscina(void);
+void listarPiscinas(void);
 //void buscarCadastro();
 //void editarCadastro();
-//void listarAtletas();
 //void excluirCadastro();
 
 #define MAX_CAD 200
@@ -193,6 +193,21 @@ void listarCadastros(void) {
     }
     system("pause");
     system("cls");
+}
+
+void listarAtletas(){
+    /* Temos clientes cadastrados no nosso sistema [ok]
+     * temos quer ver quais desses clientes, são atletas [ok]
+     * Imprime na console os clientes que são atletas [ok]
+     * */
+    printf("\t***************************\n");
+    printf("\tOs atletas cadastrados são:\n");
+    for (int i = 0; i < qtdCadastro; ++i) {//iterar a variável cliente atá atingir o número cadastro
+        if(cliente[i].atleta == 1){
+            printf("\t %s\n", cliente[i].nome);
+        }
+    }
+    printf("\t***************************\n\n");
 }
 
 void listarPiscinas(void){
