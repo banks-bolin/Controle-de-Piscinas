@@ -21,7 +21,7 @@ void listarCadastros(void);
 void listarAtletas(void);
 void menuPiscina(void);
 void listarPiscinas(void);
-//void buscarCadastro();
+void buscarCadastro(void);
 //void editarCadastro();
 //void excluirCadastro();
 
@@ -55,7 +55,7 @@ int main () {
                 break;
             case 2:
                 system("cls");
-//                buscarCadastro();
+                buscarCadastro();
                 break;
             case 3:
                 system("cls");
@@ -118,7 +118,7 @@ void menuPiscina(void){
 
 int gerarMatricula (void) {
     srand(time(NULL));
-    int i = rand();
+    int i = rand() % 9000000 + 1000000;
     return i;
 }
 
@@ -190,13 +190,12 @@ void listarCadastros(void) {
         } else {
             printf("\tNão é atleta.\n");
         }
-        printf("\t***************************\n");
     }
     system("pause");
     system("cls");
 }
 
-void listarAtletas(){
+void listarAtletas(void){
     /* Temos clientes cadastrados no nosso sistema [ok]
      * temos quer ver quais desses clientes, são atletas [ok]
      * Imprime na console os clientes que são atletas [ok]
@@ -274,4 +273,47 @@ void listarPiscinas(void){
         }
         limpaStdin();
     }while(opcao != 5);
+}
+
+void buscarCadastro(void) {
+    char busca[12];
+    int valid = 0;
+
+    //Buscar por CPF ou Matrícula
+    printf("Informe o CPF ou matrícula do cliente (informe apenas números): ");
+    entradaString(busca, sizeof(busca));
+    system("cls");
+
+    int tam = strlen(busca);
+    if (tam == 7) {
+        for (int i = 0; i < qtdCadastro; i++) {
+            if(atoi(busca) == cliente[i].matricula) {
+                printf("\tnome: %s\n", cliente[i].nome);
+                printf("\tCPF: %s\n", cliente[i].cpf);
+                printf("\tmatrícula: %d\n", cliente[i].matricula);
+                printf("\tidade: %d\n", cliente[i].idade);
+                valid = 1;
+            }
+        }
+        if (valid == 0) {
+            printf("Matrícula não encontrada");
+        }
+    } else if (tam == 11) {
+        for (int i = 0; i < qtdCadastro; i++) {
+            if (!strcmp(busca, cliente[i].cpf)) {
+                printf("\tnome: %s\n", cliente[i].nome);
+                printf("\tCPF: %s\n", cliente[i].cpf);
+                printf("\tmatrícula: %d\n", cliente[i].matricula);
+                printf("\tidade: %d\n", cliente[i].idade);
+                valid = 1;
+            }
+        }
+        if (valid == 0) {
+            printf("CPF não encontrado");
+        }
+    } else {
+        printf("Número informado é inválido.");
+    }
+    system("pause");
+    system("cls");
 }
