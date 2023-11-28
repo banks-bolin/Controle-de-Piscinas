@@ -8,22 +8,22 @@
 #include <time.h>
 #include <string.h>
 
+#define MAX_CAD 200
+#define MAX_STR_CAD 51
+#define MAX_CPF 12
+
 void menu(void);
 int gerarMatricula(void);
 void cadastraUsuario(void);
 void limpaStdin(void);
 void entradaString(char *s, int tam);
 void listarCadastros(void);
-void listarAtletas();
+void listarAtletas(void);
 void menuPiscina(void);
 void listarPiscinas(void);
 //void buscarCadastro();
 //void editarCadastro();
 //void excluirCadastro();
-
-#define MAX_CAD 200
-#define MAX_STR_CAD 51
-#define MAX_CPF 12
 
 typedef struct {
     char nome[MAX_STR_CAD];
@@ -44,7 +44,7 @@ int main () {
 
     do {
         menu();
-        printf("        Escolha uma op√ß√£o: ");
+        printf("        Escolha uma opÁ„o: ");
         scanf("%d", &opcao);
         limpaStdin();
 
@@ -83,7 +83,7 @@ int main () {
                 break;
             default:
                 system("cls");
-                printf("Op√ß√£oo inv√°lida.\n");
+                printf("OpÁ„o inv·lida.\n");
         }
 
     } while(opcao != 8);
@@ -91,10 +91,10 @@ int main () {
     return 0;
 }
 
-void menu() {
+void menu(void) {
     printf("\t****************************************************************************\n");
-    printf("\t*    Voc√™ est√° prestes a ser atendido, escolha uma das op√ß√µes abaixo:      *\n");
-    printf("\t*     1. Cadastrar Usu√°rio                                                 *\n");
+    printf("\t*    VocÍ est· prestes a ser atendido, escolha uma das opÁıes abaixo:      *\n");
+    printf("\t*     1. Cadastrar Usu·rio                                                 *\n");
     printf("\t*     2. Buscar Cadastro                                                   *\n");
     printf("\t*     3. Editar Cadastro                                                   *\n");
     printf("\t*     4. Listar Cadastro                                                   *\n");
@@ -107,7 +107,7 @@ void menu() {
 
 void menuPiscina(void){
     printf("\t****************************************************************************\n");
-    printf("\t*    Qual piscina voc√™ quer listar?                                        *\n");
+    printf("\t*    Qual piscina vocÍ quer listar?                                        *\n");
     printf("\t*     1. Piscina - 0.40m                                                   *\n");
     printf("\t*     2. Piscina - 1,50m                                                   *\n");
     printf("\t*     3. Piscina - 2,50m                                                   *\n");
@@ -133,15 +133,15 @@ void cadastraUsuario(void) {
         entradaString(cliente[qtdCadastro].nome, sizeof(cliente[qtdCadastro].nome));
         printf("Informe o CPF: ");
         entradaString(cliente[qtdCadastro].cpf, sizeof(cliente[qtdCadastro].cpf));
-        printf("Informe o endere√ßo: ");
+        printf("Informe o endereÁo: ");
         entradaString(cliente[qtdCadastro].endereco, sizeof(cliente[qtdCadastro].endereco));
         printf("Informe a idade: ");
         scanf("%d", &cliente[qtdCadastro].idade);
         limpaStdin();
 
         do {
-            //Valida se o cliente √© atleta ou n√£o
-            printf("O cliente √© atleta? (s/n)");
+            //Valida se o cliente È atleta ou n„o
+            printf("O cliente È atleta? (s/n)");
             scanf("%c",&x);
             limpaStdin();
 
@@ -153,13 +153,14 @@ void cadastraUsuario(void) {
                 valid = 1;
             } else {
                 system("cls");
-                printf("Valor inv√°lido.\n\n");
+                printf("Valor inv·lido.\n\n");
             }
         }while (!valid);
         qtdCadastro++;
     } else {
         printf("Limite de cadastros atingido.");
     }
+    system("cls");
 }
 
 void limpaStdin(void) {
@@ -181,13 +182,13 @@ void listarCadastros(void) {
         printf("\t***************************\n");
         printf("\tnome: %s\n", cliente[i].nome);
         printf("\tCPF: %s\n", cliente[i].cpf);
-        printf("\tmatr√≠cula: %d\n", cliente[i].matricula);
+        printf("\tmatrÌcula: %d\n", cliente[i].matricula);
         printf("\tidade: %d\n", cliente[i].idade);
       
         if (cliente[i].atleta == 1) {
-            printf("\t√â atleta.\n");
+            printf("\t… atleta.\n");
         } else {
-            printf("\tN√£o √© atleta.\n");
+            printf("\tN„o È atleta.\n");
         }
         printf("\t***************************\n");
     }
@@ -197,12 +198,12 @@ void listarCadastros(void) {
 
 void listarAtletas(){
     /* Temos clientes cadastrados no nosso sistema [ok]
-     * temos quer ver quais desses clientes, s√£o atletas [ok]
-     * Imprime na console os clientes que s√£o atletas [ok]
+     * temos quer ver quais desses clientes, s„o atletas [ok]
+     * Imprime na console os clientes que s„o atletas [ok]
      * */
     printf("\t***************************\n");
-    printf("\tOs atletas cadastrados s√£o:\n");
-    for (int i = 0; i < qtdCadastro; ++i) {//iterar a vari√°vel cliente at√° atingir o n√∫mero cadastro
+    printf("\tOs atletas cadastrados s„o:\n");
+    for (int i = 0; i < qtdCadastro; ++i) {//iterar a vari·vel cliente at· atingir o n˙mero cadastro
         if(cliente[i].atleta == 1){
             printf("\t %s\n", cliente[i].nome);
         }
@@ -214,7 +215,7 @@ void listarPiscinas(void){
     int opcao;
     do{
         menuPiscina();
-        printf("        Escolha uma op√ß√£o: ");
+        printf("        Escolha uma opÁ„o: ");
         scanf("%d", &opcao);
         limpaStdin();
 
@@ -260,7 +261,7 @@ void listarPiscinas(void){
                     if(cliente[i].atleta == 1){
                         printf("\tnome: %s\n", cliente[i].nome);
                         printf("\tidade: %d\n", cliente[i].idade);
-                        printf("\t√â atleta.\n");
+                        printf("\t… atleta.\n");
                     }
                 }
                 break;
@@ -269,7 +270,7 @@ void listarPiscinas(void){
                 break;
             default:
                 system("cls");
-                printf("Op√ß√£o inv√°lida.\n");
+                printf("OpÁ„o inv·lida.\n");
         }
         limpaStdin();
     }while(opcao != 5);
